@@ -1,0 +1,32 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  name: debezium-connector-postgres
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+spec:
+  class: io.debezium.connector.postgresql.PostgresConnector
+  tasksMax: 1
+  config:
+    tasks.max: 1
+  # Conexão com PostgreSQL
+    database.hostname: postgres
+    database.port: 5432
+    #database.user: ${secrets:debezium-example/debezium-secret:username}
+    #database.password: ${secrets:debezium-example/debezium-secret:password}
+    database.user: postgres
+    database.password: postgres
+    database.dbname: inventory                # banco do PostgreSQL
+    database.server.name: postgres            # prefixo de tópicos (equivalente ao topic.prefix do MySQL)
+    table.include.list: "public.processos"    # filtra tabela de interesse
+    publication.autocreate.mode: filtered     # a publicação de novos topicos fica restrita as tabelas "include"
+    #database.whitelist: inventory            # pega todas as tabelas deste database
+    database.history.kafka.bootstrap.servers: kafka-data-driven-kafka-bootstrap:9092 
+    #database.include.list: inventory         # opcional, se quiser filtrar schemas específicos
+    plugin.name: pgoutput                     # ou wal2json, depende do conector e PostgreSQL versão
+    slot.name: debezium_slot                  # necessário se estiver usando logical replication
+    topic.prefix: pjepg 
+    database.history.kafka.topic: schema-changes.inventory
+    # Kafka
+    #schema.history.internal.kafka.bootstrap.servers: kafka-data-driven-kafka-bootstrap:9092
+    #schema.history.internal.kafka.topic: schema-changes.inventory
