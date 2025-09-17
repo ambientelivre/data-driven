@@ -1,8 +1,8 @@
+# Deploy de uma Stack kafka com Strimzi em Kind/K8s  
 
 
 
-
-## Permissões para o user KafkaConnect/debezium conectar no Postgres
+### Permissões para o user KafkaConnect/debezium conectar no Postgres
 
 Este cenario preve um database no postgres chamado sample_data com uma tabela 
 chamada users
