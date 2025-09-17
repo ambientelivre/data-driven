@@ -9,6 +9,7 @@ chamada users
 
 
 ```sql
+CREATE ROLE usr_kafka WITH LOGIN PASSWORD 'sejalivre';
 GRANT CONNECT ON DATABASE sample_data TO usr_kafka;
 ALTER ROLE usr_kafka WITH REPLICATION;
 GRANT USAGE ON SCHEMA public TO usr_kafka;
