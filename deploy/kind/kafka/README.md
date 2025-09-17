@@ -15,4 +15,7 @@ ALTER ROLE usr_kafka WITH REPLICATION;
 GRANT USAGE ON SCHEMA public TO usr_kafka;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO usr_kafka;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO usr_kafka;
+
+CREATE PUBLICATION dbz_publication FOR TABLE pje_1g.processos;
+
 ```
