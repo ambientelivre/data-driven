@@ -22,8 +22,10 @@ wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bas
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nifinodegroupautoscalers.yaml
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nificonnections.yaml
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nifiresources.yaml
-ssh
+```
 
+## create CDR
+```ssh
 kubectl apply -f nifi.konpyutaika.com_nificlusters.yaml
 kubectl apply -f nifi.konpyutaika.com_nifiusers.yaml
 kubectl apply -f nifi.konpyutaika.com_nifiusergroups.yaml
