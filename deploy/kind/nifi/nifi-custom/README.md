@@ -3,7 +3,7 @@
 
 ### Fazer o build da imagem no Nifi com Libs Parquet e Hadoop 
 
-´´´ssh
+´´´shell
 docker build -t localhost:5000/nifi:2.5.0-parquet .
 docker tag localhost:5000/nifi:2.5.0-parquet localhost:5000/nifi:2.5.0-parquet
 docker push localhost:5000/nifi:2.5.0-parquet
@@ -16,7 +16,7 @@ docker push localhost:5000/nifi:2.5.0-parquet
 
 OS nars do nifi ficam no Repositório Maven Central
 
-´´´ssh
+´´´shell
 wget https://repo1.maven.org/maven2/org/apache/nifi/nifi-parquet-nar/2.5.0/nifi-parquet-nar-2.5.0.nar
 wget https://repo1.maven.org/maven2/org/apache/nifi/nifi-hadoop-libraries-nar/2.5.0/nifi-hadoop-libraries-nar-2.5.0.nar
 
