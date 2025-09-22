@@ -11,6 +11,8 @@ wget https://github.com/jetstack/cert-manager/releases/download/v1.17.2/cert-man
 
 kubectl apply -f cert-manager.yaml
 
+## Origens destes arquivos
+```ssh
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nificlusters.yaml
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nifiusers.yaml
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nifiusergroups.yaml
@@ -20,7 +22,10 @@ wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bas
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nifinodegroupautoscalers.yaml
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nificonnections.yaml
 wget https://raw.githubusercontent.com/konpyutaika/nifikop/master/config/crd/bases/nifi.konpyutaika.com_nifiresources.yaml
+```
 
+## create CDR
+```ssh
 kubectl apply -f nifi.konpyutaika.com_nificlusters.yaml
 kubectl apply -f nifi.konpyutaika.com_nifiusers.yaml
 kubectl apply -f nifi.konpyutaika.com_nifiusergroups.yaml
@@ -30,7 +35,7 @@ kubectl apply -f nifi.konpyutaika.com_nifiregistryclients.yaml
 kubectl apply -f nifi.konpyutaika.com_nifinodegroupautoscalers.yaml
 kubectl apply -f nifi.konpyutaika.com_nificonnections.yaml
 kubectl apply -f nifi.konpyutaika.com_nifiresources.yaml
-
+```
 
 kubectl create ns nifi
 
