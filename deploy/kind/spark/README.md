@@ -8,16 +8,22 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.sql.catalog.iceberg.type=rest \
   --conf spark.sql.catalog.iceberg.uri=http://iceberg-rest-catalog.spark.svc.cluster.local:8181 \
   --conf spark.sql.catalog.iceberg.warehouse=s3a://warehouse/ \
-  --conf spark.hadoop.fs.s3a.endpoint=http://minio-data-driven-hl.tenant-data-driven.svc.cluster.local:9000 \
-  --conf spark.hadoop.fs.s3a.access.key=minio \
-  --conf spark.hadoop.fs.s3a.secret.key=minio123 \
-  --conf spark.hadoop.fs.s3a.path.style.access=true \
-  --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
   --conf spark.sql.defaultCatalog=iceberg \
-  --conf spark.sql.warehouse.dir=s3a://warehouse/
+  --conf spark.sql.warehouse.dir=s3a://warehouse/ \
+  --conf spark.sql.catalog.iceberg.io-impl=org.apache.iceberg.aws.s3.S3FileIO \
+  --conf spark.sql.catalog.demo.s3.endpoint=http://minio:9000
   ```
 
 ```shell
+
+
+paga S3a:
+  --conf spark.hadoop.fs.s3a.endpoint=http://minio-data-driven-hl.tenant-data-driven.svc.cluster.local:9000 \
+ --conf spark.hadoop.fs.s3a.access.key=minio \
+  --conf spark.hadoop.fs.s3a.secret.key=minio123 \
+  --conf spark.hadoop.fs.s3a.path.style.access=true \
+  --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
+
 CREATE NAMESPACE IF NOT EXISTS nyc;
 
 
