@@ -14,7 +14,7 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.hadoop.fs.s3a.path.style.access=true \
   --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
   --conf spark.sql.defaultCatalog=iceberg
-  ``
+  ```
 
 ```shell
 CREATE NAMESPACE IF NOT EXISTS nyc;
@@ -29,7 +29,7 @@ CREATE TABLE nyc.taxis (
 ) ;
 
 
-INSERT INTO iceberg.nyc2.taxis VALUES
+INSERT INTO iceberg.nyc.taxis VALUES
   (1, 1001, 5.2, 15.5, 'N'),
   (2, 1002, 3.8, 10.0, 'Y'),
   (1, 1003, 12.0, 25.0, 'N');
