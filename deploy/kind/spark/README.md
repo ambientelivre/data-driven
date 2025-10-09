@@ -1,4 +1,4 @@
-##
+## Deloy
 
 ### Testing
 ```shell
@@ -15,3 +15,23 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
   --conf spark.sql.defaultCatalog=iceberg
   ``
+
+```shell
+CREATE NAMESPACE IF NOT EXISTS nyc;
+
+
+CREATE TABLE nyc.taxis (
+  vendor_id BIGINT,
+  trip_id BIGINT,
+  trip_distance FLOAT,
+  fare_amount DOUBLE,
+  store_and_fwd_flag STRING
+) ;
+
+
+INSERT INTO iceberg.nyc2.taxis VALUES
+  (1, 1001, 5.2, 15.5, 'N'),
+  (2, 1002, 3.8, 10.0, 'Y'),
+  (1, 1003, 12.0, 25.0, 'N');
+```
+
