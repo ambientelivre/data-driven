@@ -2,7 +2,7 @@
 
 ### Testing
 
-
+´´´shell
 $SPARK_HOME/bin/spark-sql \
   --master spark://cluster-with-hpa-template-master-0:7077 \
   --conf spark.sql.catalog.iceberg=org.apache.iceberg.spark.SparkCatalog \
@@ -15,3 +15,4 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.hadoop.fs.s3a.path.style.access=true \
   --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
   --conf spark.sql.defaultCatalog=iceberg
+  ´´´
