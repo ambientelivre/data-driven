@@ -1,0 +1,90 @@
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+apiVersion: spark.apache.org/v1
+kind: SparkCluster
+metadata:
+  name: cluster-with-hpa-template
+spec:
+  runtimeVersions:
+    sparkVersion: "3.5.2"
+  clusterTolerations:
+    instanceConfig:
+      initWorkers: 1
+      minWorkers: 1
+      maxWorkers: 1
+  workerSpec:
+    statefulSetSpec:
+      template:
+        spec:
+          containers:
+          - name: worker
+            resources:
+              requests:
+                cpu: "0.1"
+                #memory: "1Gi"
+                memory: "512m"
+              limits:
+                cpu: "0.1"
+                #memory: "1Gi"
+                memory: "512m"
+    horizontalPodAutoscalerSpec:
+      metrics:
+      - type: ContainerResource
+        containerResource:
+          name: cpu
+          container: worker
+          target:
+            type: Utilization
+            averageUtilization: 60
+      behavior:
+        scaleUp:
+          policies:
+          - type: Pods
+            value: 1
+            periodSeconds: 10
+        scaleDown:
+          policies:
+          - type: Pods
+            value: 1
+            periodSeconds: 1200
+  sparkConf:
+    #spark.kubernetes.container.image: "apache/spark:4.0.1-java21"
+    spark.kubernetes.container.image: kind-registry:5000/spark-iceberg:3.5.2
+    spark.master.ui.title: "Cluster with HorizontalPodAutoscaler Template"
+    spark.master.rest.enabled: "true"
+    spark.master.rest.host: "0.0.0.0"
+    spark.ui.reverseProxy: "true"
+
+    # configs iceberg
+    spark.sql.extensions: org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+    spark.sql.catalog.iceberg: org.apache.iceberg.spark.SparkCatalog
+    spark.sql.catalog.iceberg.type: rest
+    spark.sql.catalog.iceberg.warehouse: s3a://warehouse/wh/
+    spark.sql.catalog.iceberg.uri: http://iceberg-rest-catalog.spark.svc.cluster.local:8181
+    spark.sql.catalog.iceberg.io-impl: org.apache.iceberg.aws.s3.S3FileIO
+    spark.sql.catalog.iceberg.s3.endpoint: http://minio-data-driven-hl.tenant-data-driven.svc.cluster.local:9000
+    spark.sql.defaultCatalog: iceberg
+
+    # configs minio
+    spark.hadoop.fs.s3a.endpoint: http://minio-data-driven-hl.tenant-data-driven.svc.cluster.local:9000
+    spark.hadoop.fs.s3a.access.key: minio
+    spark.hadoop.fs.s3a.secret.key: minio123
+    spark.hadoop.fs.s3a.path.style.access: "true"
+    spark.hadoop.fs.s3a.impl: "org.apache.hadoop.fs.s3a.S3AFileSystem"
+
+    #spark.eventLog.enabled: "true"
+    #spark.eventLog.dir: /tmp/spark-events
+    #spark.history.fs.logDirectory: /tmp/spark-events
+    spark.sql.catalogImplementation: in-memory
