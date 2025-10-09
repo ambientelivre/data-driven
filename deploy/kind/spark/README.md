@@ -1,4 +1,4 @@
-## Deloy
+## Deploy
 
 ### Testing
 ```shell
