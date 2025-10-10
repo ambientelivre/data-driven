@@ -36,6 +36,16 @@ CREATE TABLE nyc.taxis (
 ) ;
 
 
+CREATE TABLE nyc.taxis (
+  vendor_id BIGINT,
+  trip_id BIGINT,
+  trip_distance FLOAT,
+  fare_amount DOUBLE,
+  store_and_fwd_flag STRING
+) USING iceberg
+LOCATION 's3://warehouse/nyc/taxis/']
+
+
 INSERT INTO iceberg.nyc.taxis VALUES
   (1, 1001, 5.2, 15.5, 'N'),
   (2, 1002, 3.8, 10.0, 'Y'),
