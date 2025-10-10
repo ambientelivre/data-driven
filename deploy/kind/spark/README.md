@@ -18,7 +18,7 @@ $SPARK_HOME/bin/spark-sql \
 
 
 paga S3a:
-  --conf spark.hadoop.fs.s3a.endpoint=http://minio-data-driven-hl.tenant-data-driven.svc.cluster.local:9000 \
+  --conf spark.hadoop.fs.s3a.endpoint=http://minio.tenant-data-driven.svc.cluster.local:9000 \
  --conf spark.hadoop.fs.s3a.access.key=minio \
   --conf spark.hadoop.fs.s3a.secret.key=minio123 \
   --conf spark.hadoop.fs.s3a.path.style.access=true \
@@ -63,7 +63,7 @@ val spark = SparkSession.builder()
   .getOrCreate()
 
 // Configurações do MinIO (S3A)
-spark.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "http://localhost:9000")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "http://minio:9000")
 spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", "minio")
 spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", "minio123")
 spark.sparkContext.hadoopConfiguration.set("fs.s3a.path.style.access", "true")
