@@ -51,4 +51,45 @@ INSERT INTO iceberg.nyc.taxis VALUES
   (2, 1002, 3.8, 10.0, 'Y'),
   (1, 1003, 12.0, 25.0, 'N');
 ```
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.types._
 
+// Cria SparkSession
+val spark = SparkSession.builder()
+  .appName("SparkMinioTest")
+  .master("local[*]")
+  .getOrCreate()
+
+// Configurações do MinIO (S3A)
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "http://localhost:9000")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", "minio")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", "minio123")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.path.style.access", "true")
+spark.sparkContext.hadoopConfiguration.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+
+// Cria um DataFrame de exemplo
+val schema = StructType(Array(
+  StructField("id", IntegerType, true),
+  StructField("name", StringType, true)
+))
+
+val data = Seq(
+  (1, "Alice"),
+  (2, "Bob"),
+  (3, "Charlie")
+)
+
+val df = spark.createDataFrame(data).toDF("id", "name")
+
+// Caminho no MinIO (pode ser s3a://bucket/pasta/)
+val minioPath = "s3a://warehouse/test-data/"
+
+// Escreve no MinIO
+df.write.mode("overwrite").parquet(minioPath)
+
+// Lê do MinIO
+val readDf = spark.read.parquet(minioPath)
+readDf.show()
+```java
+
+```
