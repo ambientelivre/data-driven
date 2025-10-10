@@ -51,6 +51,8 @@ INSERT INTO iceberg.nyc.taxis VALUES
   (2, 1002, 3.8, 10.0, 'Y'),
   (1, 1003, 12.0, 25.0, 'N');
 ```
+
+```java
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types._
 
@@ -90,6 +92,4 @@ df.write.mode("overwrite").parquet(minioPath)
 // Lê do MinIO
 val readDf = spark.read.parquet(minioPath)
 readDf.show()
-```java
-
 ```
