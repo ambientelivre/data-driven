@@ -9,8 +9,8 @@ val io = new S3FileIO()
 import scala.jdk.CollectionConverters._
 io.initialize(Map(
   "s3.endpoint" -> "http://minio:9000",
-  "s3.access-key-id" -> "minio",
-  "s3.secret-access-key" -> "minio123"
+  "s3.access-key-id" -> "admin",
+  "s3.secret-access-key" -> "password"
 ).asJava)
 
 // Caminho do "arquivo teste" no bucket
