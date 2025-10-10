@@ -43,7 +43,7 @@ CREATE TABLE nyc.taxis (
   fare_amount DOUBLE,
   store_and_fwd_flag STRING
 ) USING iceberg
-LOCATION 's3://warehouse/nyc/taxis/']
+LOCATION 's3://warehouse/nyc/taxis/';
 
 
 INSERT INTO iceberg.nyc.taxis VALUES
