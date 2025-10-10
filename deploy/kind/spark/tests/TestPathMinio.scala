@@ -1,5 +1,6 @@
 import org.apache.iceberg.aws.s3.S3FileIO
 import java.nio.charset.StandardCharsets
+import scala.jdk.CollectionConverters._
 
 val io = new S3FileIO()
 io.initialize(Map(
