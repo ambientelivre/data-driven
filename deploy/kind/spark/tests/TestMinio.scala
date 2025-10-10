@@ -4,7 +4,7 @@
 ## rodar assim
 ## spark-shell --jars /opt/spark/jars/iceberg-rest-adapter.jar
 
-## wget https://ambientelivre.com.br/treinamentos//iceberg-rest-adapter.jar
+## wget https://ambientelivre.com.br/treinamentos/iceberg-rest-adapter.jar
 
 
 import org.apache.iceberg.Table
