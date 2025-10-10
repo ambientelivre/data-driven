@@ -11,7 +11,7 @@ import org.apache.iceberg.Table
 import org.apache.iceberg.Schema
 import org.apache.iceberg.types.Types
 import org.apache.iceberg.aws.s3.S3FileIO
-##import org.apache.iceberg.hadoop.HadoopTables // só se fosse Hadoop
+import org.apache.iceberg.hadoop.HadoopTables // só se fosse Hadoop
 import org.apache.iceberg.data.{GenericRecord, Record}
 import org.apache.iceberg.data.parquet.GenericParquetWriter
 import org.apache.iceberg.io.{FileIO, OutputFileFactory, FileAppender}
