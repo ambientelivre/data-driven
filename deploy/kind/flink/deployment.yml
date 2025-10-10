@@ -1,0 +1,49 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: kafka-producer
+spec:
+  image: flink:1.17
+  flinkVersion: v1_17
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: "1"
+    rest.port: "8086"
+    bootstrap.servers: "host.minikube.internal:9092"
+  serviceAccount: flink
+  podTemplate:
+    metadata:
+      name: flink-pod-template
+    spec:
+      containers:
+        - name: flink-main-container
+          volumeMounts:
+            - name: flink-job-jar
+              mountPath: /opt/flink/job
+      volumes:
+        - name: flink-job-jar
+          persistentVolumeClaim:
+            claimName: flink-job-jar-pvc
+  jobManager:
+    resource:
+      memory: "1024m"
+      cpu: 0.5
+  taskManager:
+    resource:
+      memory: "1024m"
+      cpu: 0.5
+  job:
+    jarURI: local:///opt/flink/job/KafkaProducer-1.0-SNAPSHOT.jar
+    entryClass: org.example.KafkaJsonProducer
+    parallelism: 1
+    upgradeMode: stateless
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: flink-job-jar-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi 
