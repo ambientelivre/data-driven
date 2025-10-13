@@ -5,8 +5,10 @@
 #### Helm
 https://airflow.apache.org/docs/helm-chart/stable/index.html
 
+```shell
 helm repo add apache-airflow https://airflow.apache.org
 helm upgrade --install airflow apache-airflow/airflow --namespace airflow --create-namespace
+```
 
 ## upgrade chart 
 
