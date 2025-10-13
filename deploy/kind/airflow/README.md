@@ -41,6 +41,8 @@ kubectl delete pvc --all -n airflow
 kubectl delete secret --all -n airflow
 kubectl delete configmap --all -n airflow
 kubectl delete job --all -n airflow
+kubectl delete ns airflow
+
 ```
 
 
