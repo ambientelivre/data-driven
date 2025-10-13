@@ -12,33 +12,36 @@ helm upgrade --install airflow apache-airflow/airflow --namespace airflow --crea
 
 ## upgrade chart 
 
+```shell
 helm upgrade airflow apache-airflow/airflow --namespace airflow
+```
 
 https://airflow.apache.org/docs/helm-chart/stable/parameters-ref.html
 https://artifacthub.io/packages/helm/apache-airflow/airflow
 https://github.com/apache/airflow/tree/main/chart
 
+```shell
 wget https://raw.githubusercontent.com/apache/airflow/refs/heads/main/chart/values.yaml
-
+```
 
 
 ### Update de values 
 
+```shell
 helm show values apache-airflow/airflow > values.yaml
-
 helm upgrade --install airflow apache-airflow/airflow --namespace airflow -f values.yaml
-
+```
 
 #### Unnistall
+```shell
 helm delete airflow --namespace airflow
-
 helm uninstall airflow -n airflow
 kubectl delete all --all -n airflow
 kubectl delete pvc --all -n airflow
 kubectl delete secret --all -n airflow
 kubectl delete configmap --all -n airflow
 kubectl delete job --all -n airflow
-
+```
 
 
 #####  Installing the Chart with Argo CD, Flux, Rancher or Terraform
@@ -82,9 +85,3 @@ unnecessary restarts of your Airflow components.
 Information on how to set a static webserver secret key can be found here:
 
 
-
-
-
-
-  
-  
