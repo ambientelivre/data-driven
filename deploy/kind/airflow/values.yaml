@@ -2819,7 +2819,7 @@ postgresql:
   enabled: true
   image:
     repository: postgres
-    tag: "13"
+    tag: "18"
   auth:
     enablePostgresUser: true
     postgresPassword: postgres
