@@ -76,7 +76,7 @@ You can get Fernet Key value by running the following:
     echo Fernet Key: $(kubectl get secret --namespace airflow airflow-fernet-key -o jsonpath="{.data.fernet-key}" | base64 --decode)
 
 ###########################################################
-#  WARNING: You should set a static webserver secret key  #
+###  WARNING: You should set a static webserver secret key  #
 ###########################################################
 
 You are using a dynamically generated webserver secret key, which can lead to
