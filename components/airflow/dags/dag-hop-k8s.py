@@ -6,10 +6,7 @@ from datetime import timedelta
 default_args = {
     "owner": "airflow",
     "depends_on_past": False,
-    "email_on_failure": False,
-    "email_on_retry": False,
-    "retries": 0,
-    "retry_delay": timedelta(minutes=1),
+    "retries": 0
 }
 
 with DAG(
@@ -17,7 +14,7 @@ with DAG(
     default_args=default_args,
     description="Executa um sample do Apache Hop usando KubernetesPodOperator",
     schedule=None,
-    start_date=timedelta(2025, 1, 1),
+    start_date=datetime.datetime(2025, 1, 1),
     catchup=False,
     tags=["hop", "kubernetes", "samples"],
 ) as dag:
