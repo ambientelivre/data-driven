@@ -1,6 +1,5 @@
 from airflow import DAG
 from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
-from airflow.utils.dates import days_ago
 from datetime import timedelta
 
 default_args = {
@@ -17,7 +16,7 @@ with DAG(
     default_args=default_args,
     description="Executa um sample do Apache Hop usando KubernetesPodOperator",
     schedule_interval=None,
-    start_date=days_ago(1),
+    start_date=datetime.datetime(2025, 1, 1),
     catchup=False,
     tags=["hop", "kubernetes", "samples"],
 ) as dag:
