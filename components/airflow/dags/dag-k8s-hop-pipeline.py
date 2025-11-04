@@ -8,7 +8,7 @@ from kubernetes.client import models as k8s
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime.datetime(2025, 1, 1, tzinfo=UTC),
+    'start_date': datetime.datetime(2025, 1, 1),
     'retries': 0,
     'execution_timeout': datetime.timedelta(minutes=5),
 }
@@ -45,7 +45,8 @@ with DAG(
         # Remove o Pod após a conclusão da tarefa (recomendado para limpeza)
         is_delete_operator_pod=True,
         # Define o modo de reinicialização para nunca, o que é padrão para tarefas únicas.
-        startup_timeout_seconds=300
+        startup_timeout_seconds=300,
+         get_logs=True 
 
     )
 
