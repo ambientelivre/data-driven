@@ -15,8 +15,8 @@ with DAG(
     dag_id="hop_sample_pipeline",
     default_args=default_args,
     description="Executa um sample do Apache Hop usando KubernetesPodOperator",
-    schedule_interval=None,
-    start_date=datetime.datetime(2025, 1, 1),
+    schedule=None,
+    start_date=timedelta(2025, 1, 1),
     catchup=False,
     tags=["hop", "kubernetes", "samples"],
 ) as dag:
