@@ -565,7 +565,7 @@ jwtSecretAnnotations: {}
 jwtSecretName: ~
 
 # Flask secret key for Airflow <3 Webserver: `[webserver] secret_key` in airflow.cfg
-webserverSecretKey: ~
+webserverSecretKey: "d5e262a8b49a4382a30e793e7824aca8ab82a0cf99126b19fd37f14835cb025f"
 # Add custom annotations to the webserver secret
 webserverSecretAnnotations: {}
 webserverSecretKeySecretName: ~
