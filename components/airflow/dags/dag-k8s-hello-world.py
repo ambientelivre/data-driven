@@ -28,7 +28,7 @@ with DAG(
         # ID Único da Tarefa
         task_id='executar_hello_world_pod',
         # O namespace onde o Pod será criado. Deve ser o mesmo onde o Airflow opera (e tem permissão).
-        namespace='default', 
+        namespace='airflow', 
         # Nome do Pod (útil para debug com kubectl get pods)
         name='hello-world-pod',
         # Imagem a ser usada no contêiner
