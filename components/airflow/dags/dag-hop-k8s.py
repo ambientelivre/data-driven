@@ -26,7 +26,7 @@ with DAG(
         task_id="executar_hop_sample",
         name="hop-sample-pod",
         namespace="default",
-        image="apache/hop:2.9.0",
+        image="apache/hop:2.15.0",
         env_vars={
             "HOP_LOG_LEVEL": "Basic",
             "HOP_FILE_PATH": "/opt/hop/samples/pipelines/01-basic/01-basic.hpl",
