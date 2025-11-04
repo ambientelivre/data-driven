@@ -22,7 +22,7 @@ with DAG(
     executar_hop_sample = KubernetesPodOperator(
         task_id="executar_hop_sample",
         name="hop-sample-pod",
-        namespace="default",
+        namespace="airflow",
         image="apache/hop:2.15.0",
         env_vars={
             "HOP_LOG_LEVEL": "Basic",
