@@ -3,13 +3,12 @@ from __future__ import annotations
 import datetime
 
 from airflow.models.dag import DAG
-from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
 from kubernetes.client import models as k8s
 
-# Argumentos Padrão para a DAG
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime.datetime(2025, 1, 1), # Data de início no futuro, apenas para referência
+    'start_date': datetime.datetime(2025, 1, 1, tzinfo=UTC),
     'retries': 0,
     'execution_timeout': datetime.timedelta(minutes=5),
 }
@@ -39,12 +38,15 @@ with DAG(
         cmds=['/bin/bash', '-c'],
         arguments=['echo "Hello World from Kubernetes!"; sleep 1; date;'],
 
+        kubernetes_conn_id='kind',
+
         # Se for True, o log do Pod é puxado para os logs da tarefa do Airflow
         do_xcom_push=False,
         # Remove o Pod após a conclusão da tarefa (recomendado para limpeza)
         is_delete_operator_pod=True,
         # Define o modo de reinicialização para nunca, o que é padrão para tarefas únicas.
         startup_timeout_seconds=300
+
     )
 
     # A DAG tem apenas uma tarefa:
