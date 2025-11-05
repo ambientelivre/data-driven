@@ -1,0 +1,87 @@
+image:
+  tag: "476"
+server:
+  workers: 2
+
+  config:
+    #path: /etc/trino
+    https:
+      enabled: true
+      port: 8443
+      #keystore:
+      #  path: /etc/trino/generated/tls.pem
+    #  keystore:
+    #    path: ""
+    # -- Trino supports multiple [authentication
+    # types](https://trino.io/docs/current/security/authentication-types.html):
+    # PASSWORD, CERTIFICATE, OAUTH2, JWT, KERBEROS.
+    authenticationType: "PASSWORD"
+    #query:
+    #  maxMemory: "4GB"
+
+coordinator:
+  jvm:
+    maxHeapSize: "2G"
+
+worker:
+  jvm:
+    maxHeapSize: "2G"
+
+auth:
+# auth -- Available authentication methods.
+# @raw
+# Use username and password provided as a [password file](https://trino.io/docs/current/security/password-file.html#file-format):
+# ```yaml
+  passwordAuth: "admin:$2y$10$VA8mYXuJpjEHWy.WqfvrbewTXXVN6gMYLOdRQZaA5wkBCFcTISpJO"
+# ```
+# Set the name of a secret containing this file in the password.db key
+# ```yaml
+#  passwordAuthSecret: "trino-password-authentication"
+# ```
+# Additionally, set [users' groups](https://trino.io/docs/current/security/group-file.html#file-format):
+# ```yaml
+#  refreshPeriod: 5s
+#  groups: "group_name:user_1,user_2,user_3"
+# ```
+# Set the name of a secret containing this file in the group.db key
+# ```yaml
+#  groupsAuthSecret: "trino-groups-authentication"
+# ```
+
+additionalConfigProperties:
+  - internal-communication.shared-secret=xFht55VmLbEgGucdUEZnIH/Yn+/9zIEZzeVDGLFMMpo=
+  - http-server.process-forwarded=true
+  - internal-communication.https.required=true
+  - http-server.https.enabled=true
+  - http-server.https.port=8443
+# additionalConfigProperties -- [Additional config
+# properties](https://trino.io/docs/current/admin/properties.html).
+# @raw
+# Example:
+# ```yaml
+#  - internal-communication.shared-secret=random-value-999
+#  - http-server.process-forwarded=true
+# ```
+
+catalogs:
+  iceberg: |-
+    connector.name=iceberg
+    hive.metastore.uri=thrift://localhost:9083
+    #catalog.type=rest
+    #rest-catalog.uri=http://iceberg-rest-catalog:8181
+    #rest-catalog.warehouse=s3a://warehouse
+    #fs.s3a.endpoint=http://minio-data-driven-hl.tenant-data-driven.svc.cluster.local:9000
+    #fs.s3a.access.key=minioadmin
+    #fs.s3a.secret.key=minio123
+    #fs.s3a.path.style.access=true
+  #lakehouse: |-
+  #  connector.name=iceberg
+  #  hive.metastore.uri=thrift://example.net:9083
+  #rdbms: |-
+  #  connector.name=postgresql
+  #  connection-url=jdbc:postgresql://example.net:5432/database
+  #  connection-user=root
+  #  connection-password=secret
+  tpch: |-
+    connector.name=tpch
+    tpch.splits-per-node=4
