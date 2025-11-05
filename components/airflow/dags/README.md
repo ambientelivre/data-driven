@@ -1,4 +1,4 @@
-# Dags e Demais COmponents do Airflow
+# Dags e Demais Components do Airflow
 Usados para validação do Ambiente.
 
 1) Exemplo de como executar uma dag com um Operador que chama um Pod no Cluster Kind
