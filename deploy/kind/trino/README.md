@@ -1,11 +1,11 @@
 # install trino k8s
-# docs samples https://github.com/trinodb/charts/tree/main/tests/trino
-# https://artifacthub.io/packages/helm/trino/trino
+##### docs samples https://github.com/trinodb/charts/tree/main/tests/trino
+##### https://artifacthub.io/packages/helm/trino/trino
 
 helm repo add trino https://trinodb.github.io/charts
 
-git clone ...
- 
+git clone https://github.com/ambientelivre/data-driven.git
+cd  data-driven/deploy/kind/trino
 
 kubectl apply -f trino-ns.yaml
 
@@ -24,16 +24,13 @@ kubectl exec -it trino-cluster-trino-coordinator-8c65fb6bc-l9bg2  -n trino -- tr
 
 select count(*) from tpch.tiny.nation;
 
-## criando senha 
+## Criando uma nova senha (no deploy esta admin/sejalivre) 
 # docs https://trino.io/docs/current/security/password-file.html#file-format
 htpasswd -B -C 10 -c password.db admin
 informar a senha : sejalivre
-
 cat password.db
 
-
 mude em values.yaml
-
 auth:
   passwordAuth: "admin:$2y$10$yKmUAEpKMERziU9uUPvvS.etPlvzncR3LVIfx.a9TY6yP1xd/x1ZK"
 
@@ -41,9 +38,9 @@ auth:
 ## certificado autogerado
 https://trino.io/docs/current/security/internal-communication.html?utm_source=chatgpt.com
 
-## Erros no chats
-## op charts sempre adicionava a linha abaixo gerandop erros
-## server.https.keystore.path=
+## Erros no chats ele não apaga esta linha sempre vem default removemo com post-renderer
+###### op charts sempre adicionava a linha abaixo gerandop erros
+###### server.https.keystore.path=
 
 ## crieado post-renderer
 
