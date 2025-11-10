@@ -1,6 +1,13 @@
 
 helm repo add trino https://trinodb.github.io/charts
 
+helm upgrade --install trino-cluster trino/trino \
+  -f values.yaml \
+  --namespace trino \
+  --post-renderer ./remove-keystore.sh
+
+
+
 ## Build Hive Image
 
 cd /opt/trino/kind/metastore
