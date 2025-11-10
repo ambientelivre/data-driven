@@ -30,7 +30,7 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.hadoop.fs.s3a.secret.key=sejalivre \
   --conf spark.hadoop.fs.s3a.path.style.access=true \
   --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
-```shell
+```
 
 CREATE NAMESPACE IF NOT EXISTS nyc;
 
