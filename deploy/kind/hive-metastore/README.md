@@ -1,3 +1,6 @@
+
+helm repo add trino https://trinodb.github.io/charts
+
 ## Build Hive Image
 
 cd /opt/trino/kind/metastore
