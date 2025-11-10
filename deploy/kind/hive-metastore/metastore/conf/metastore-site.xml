@@ -1,0 +1,31 @@
+<configuration>
+
+  <property>
+    <name>metastore.authorization.storage.checks</name>
+    <value>false</value> 
+    <description>
+      Desabilita a verificação de permissão no armazenamento subjacente.
+    </description>
+  </property>
+
+  <property>
+    <name>metastore.warehouse.dir</name>
+    <value>s3a://warehouse/</value> 
+  </property>
+
+  <property>
+    <name>metastore.event.db.notification.api.auth</name>
+    <value>false</value>
+  </property>
+
+  <property>
+    <name>metastore.catalog.servlet.port</name>
+    <value>9001</value>
+  </property>
+
+  <property>
+    <name>metastore.catalog.servlet.auth</name>
+    <value>none</value>
+  </property>
+
+</configuration>
