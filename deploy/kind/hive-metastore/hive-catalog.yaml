@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          env:
+            - name: POSTGRES_DB
+              value: metastore_db
+            - name: POSTGRES_USER
+              value: hive
+            - name: POSTGRES_PASSWORD
+              value: sejalivre
+          ports:
+            - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hive-metastore
+spec:
+  ports:
+    - port: 9083
+      targetPort: 9083
+  selector:
+    app: hive-metastore
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hive-metastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hive-metastore
+  template:
+    metadata:
+      labels:
+        app: hive-metastore
+    spec:
+      containers:
+        - name: hive-metastore
+          #image: kind-registry:5000/hive_metastore:3.0.9
+          image: kind-registry:5000/hive_metastore_postgres:1.0.12
+          ports:
+            - containerPort: 9083
+          env:
+            - name: SERVICE_NAME
+              value: metastore
+            - name: DB_DRIVER
+              value: postgres
+            - name: SERVICE_OPTS
+              value: > 
+                -Djavax.jdo.option.ConnectionDriverName=org.postgresql.Driver
+                -Djavax.jdo.option.ConnectionURL=jdbc:postgresql://postgres:5432/metastore_db
+                -Djavax.jdo.option.ConnectionUserName=hive
+                -Djavax.jdo.option.ConnectionPassword=sejalivre
+                -Dhive.metastore.uris=thrift://hive-metastore:9083
+                -Dhive.metastore.warehouse.dir=s3a://warehouse/
+                -Dfs.s3a.endpoint=http://minio.trino.svc.cluster.local:9000
+                -Dfs.s3a.access.key=minio
+                -Dfs.s3a.secret.key=sejalivre
+                -Dfs.s3a.path.style.access=true
+                -Dfs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+            #- name: HIVE_CUSTOM_CONF_DIR
+            #  value: "/opt/hive/conf"
+
+            #- name: AWS_ACCESS_KEY_ID
+            #  value: minio
+            #- name: AWS_SECRET_ACCESS_KEY
+            #  value: sejalivre
+            #- name: S3_ENDPOINT
+            #  value: http://minio.trino.svc.cluster.local:9000
+            #- name: S3_PATH_STYLE_ACCESS
+            #  value: "true"
+            #- name: S3_REGION
+            #  value: us-east-1
