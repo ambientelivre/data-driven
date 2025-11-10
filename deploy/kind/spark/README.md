@@ -14,12 +14,13 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.sql.catalog.demo.s3.endpoint=http://minio:9000
   ```
 
-```shell
+```
 
 
 #### paga S3a:
 
-```shell
+
+```sh
 
 $SPARK_HOME/bin/spark-sql \
   --master spark://cluster-with-hpa-template-master-0:7077 \
