@@ -18,11 +18,20 @@ $SPARK_HOME/bin/spark-sql \
 
 
 #### paga S3a:
-  --conf spark.hadoop.fs.s3a.endpoint=http://minio.tenant-data-driven.svc.cluster.local:9000 \
- --conf spark.hadoop.fs.s3a.access.key=minio \
-  --conf spark.hadoop.fs.s3a.secret.key=minio123 \
+
+```shell
+
+$SPARK_HOME/bin/spark-sql \
+  --master spark://cluster-with-hpa-template-master-0:7077 \
+  --conf spark.sql.catalog.metastore_db=org.apache.iceberg.spark.SparkCatalog \
+  --conf spark.sql.catalog.metastore_db.type=hive \
+  --conf spark.sql.catalog.metastore_db.uri=thrift://hive-metastore.spark.svc.cluster.local:9083 \
+  --conf spark.hadoop.fs.s3a.endpoint=http://minio.trino.svc.cluster.local:9000 \
+  --conf spark.hadoop.fs.s3a.access.key=minio \
+  --conf spark.hadoop.fs.s3a.secret.key=sejalivre \
   --conf spark.hadoop.fs.s3a.path.style.access=true \
-  --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
+  --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+```shell
 
 CREATE NAMESPACE IF NOT EXISTS nyc;
 
