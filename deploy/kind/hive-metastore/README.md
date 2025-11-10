@@ -1,4 +1,5 @@
 
+## Helm Trino
 helm repo add trino https://trinodb.github.io/charts
 
 ```sh
@@ -20,6 +21,21 @@ CREATE TABLE iceberg.nataltrino.taxis (
   fare_amount DOUBLE,
   store_and_fwd_flag VARCHAR
 );
+
+
+## COmandos para Debug
+### Criando o Schema direto pelo Hive.
+
+hive --service metatool
+ou
+hive --service cli -e "CREATE DATABASE teste LOCATION 's3a://warehouse/teste';"
+
+hadoop fs -ls s3a://warehouse/
+
+
+
+
+
 
 
 
