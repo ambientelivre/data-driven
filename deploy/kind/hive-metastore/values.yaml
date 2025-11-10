@@ -68,10 +68,7 @@ catalogs:
     connector.name=iceberg
     iceberg.catalog.type=hive_metastore
     hive.metastore.uri=thrift://hive-metastore.trino.svc.cluster.local:9083
-
-    # Local do warehouse (no MinIO)
-    #catalog.warehouse=s3://warehouse/
-
+    
     # Configurações do MinIO (S3A)
     fs.native-s3.enabled=true
     s3.region=us-east-1
