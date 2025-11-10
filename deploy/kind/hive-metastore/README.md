@@ -11,7 +11,7 @@ helm upgrade --install trino-cluster trino/trino \
 trino --server https://localhost:8443 --user admin --password --insecure
 
 CREATE SCHEMA iceberg.nataltrino
-WITH (location = 's3://warehouse/nataltrino/');
+WITH (location = 's3a://warehouse/nataltrino/');
 
 CREATE TABLE iceberg.nataltrino.taxis (
   vendor_id BIGINT,
