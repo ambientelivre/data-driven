@@ -19,17 +19,19 @@ $SPARK_HOME/bin/spark-sql \
 
 
 ```sh
-
 $SPARK_HOME/bin/spark-sql \
   --master spark://cluster-with-hpa-template-master-0:7077 \
+  --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
   --conf spark.sql.catalog.metastore_db=org.apache.iceberg.spark.SparkCatalog \
   --conf spark.sql.catalog.metastore_db.type=hive \
   --conf spark.sql.catalog.metastore_db.uri=thrift://hive-metastore.spark.svc.cluster.local:9083 \
+  --conf spark.sql.catalog.metastore_db.warehouse=s3a://warehouse/wh/ \
   --conf spark.hadoop.fs.s3a.endpoint=http://minio.trino.svc.cluster.local:9000 \
   --conf spark.hadoop.fs.s3a.access.key=minio \
   --conf spark.hadoop.fs.s3a.secret.key=sejalivre \
   --conf spark.hadoop.fs.s3a.path.style.access=true \
   --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+
 ```
 
 CREATE NAMESPACE IF NOT EXISTS nyc;
