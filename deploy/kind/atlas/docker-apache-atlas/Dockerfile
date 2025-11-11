@@ -34,6 +34,8 @@ RUN apt-get update \
         -Dmaven.repo.local=/tmp/atlas-src/.mvn-repo \
         -Dhttps.protocols=TLSv1.2 \
         -DskipTests \
+        -Dmaven.wagon.http.ssl.insecure=true \
+        -Dmaven.wagon.http.ssl.allowall=true \
         -Drat.skip=true \
         package -Pdist,embedded-hbase-solr \
     && tar --strip 1 -xzvf /tmp/atlas-src/distro/target/apache-atlas-${VERSION}-server.tar.gz -C /apache-atlas \
