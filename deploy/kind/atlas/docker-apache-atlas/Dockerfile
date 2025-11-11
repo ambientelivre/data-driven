@@ -33,7 +33,7 @@ RUN apt-get update \
     && mvn clean \
         -Dmaven.repo.local=/tmp/atlas-src/.mvn-repo \
         -Dhttps.protocols=TLSv1.2 \
-        -DskipTests -pl '!addons/sqoop-bridge-shim'
+        -DskipTests -pl '!addons/sqoop-bridge-shim' \
         -Dmaven.wagon.http.ssl.insecure=true \
         -Dmaven.wagon.http.ssl.allowall=true \
         -Drat.skip=true \
