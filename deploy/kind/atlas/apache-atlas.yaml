@@ -16,22 +16,12 @@ spec:
     spec:
       containers:
         - name: apache-atlas
-          image: sburn/apache-atlas:latest
+          image: apache/atlas:2.4.0
           ports:
             - containerPort: 21000
-          command:
-            - /bin/bash
-            - -c
-            - |
-              if [ -x /opt/apache-atlas/bin/atlas_start.py ]; then
-                /opt/apache-atlas/bin/atlas_start.py
-              elif [ -x /opt/atlas/bin/atlas_start.py ]; then
-                /opt/atlas/bin/atlas_start.py
-              else
-                echo "Erro: script atlas_start.py não encontrado"; ls -R /opt
-                sleep 3600
-              fi
-              tail -f /opt/apache-atlas/logs/atlas.log || tail -f /opt/atlas/logs/atlas.log
+          env:
+            - name: ATLAS_OPTS
+              value: "-Datlas.server.bind.address=0.0.0.0"
           resources:
             requests:
               cpu: "500m"
