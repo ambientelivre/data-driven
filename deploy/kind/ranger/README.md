@@ -1,8 +1,19 @@
+![img.png](img.png)
+
+Helm chart for https://github.com/apache/ranger
+
+```
+cd ranger/
+helm upgrade --install ranger-local .  -n ranger-admin
+```
 
 
-helm repo add apache-ranger https://ahmetfurkandemir.github.io/charts/demir-open-source/apache-ranger/
+![img_1.png](img_1.png)
+admin/Rangeradmin1!
 
 
+## create a database in postgres
 
-helm upgrade --install apache-ranger apache-ranger/apache-ranger --version 0.1.0 -n apache-ranger --create-namespace
-
+CREATE DATABASE ranger;
+CREATE USER ranger WITH ENCRYPTED PASSWORD 'ranger';
+GRANT ALL PRIVILEGES ON DATABASE rangerdb TO ranger;
