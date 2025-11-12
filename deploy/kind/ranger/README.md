@@ -12,8 +12,10 @@ helm upgrade --install ranger-local .  -n ranger-admin
 admin/Rangeradmin1!
 
 
-## create a database in postgres
+criar postgres-range.yaml  para postgres no mesmo namespace
 
+## Caso for usar outro postgres mudar nos values
+#### create a database in postgres
 CREATE DATABASE ranger;
 CREATE USER ranger WITH ENCRYPTED PASSWORD 'ranger';
 GRANT ALL PRIVILEGES ON DATABASE rangerdb TO ranger;
