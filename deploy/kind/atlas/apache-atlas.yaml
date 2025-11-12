@@ -41,5 +41,21 @@ spec:
               memory: "4Gi"
           volumeMounts:
             - name: atlas-data
-              m
+              mountPath: /opt/apache-atlas/data
+      volumes:
+        - name: atlas-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache-atlas
+spec:
+  type: NodePort
+  ports:
+    - port: 21000
+      targetPort: 21000
+      nodePort: 32100
+  selector:
+    app: apache-atlas
 
