@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: apache-atlas
-  labels:
-    app: apache-atlas
+  namespace: atlas
 spec:
   replicas: 1
   selector:
@@ -16,12 +15,10 @@ spec:
     spec:
       containers:
         - name: apache-atlas
-          image: apache/atlas:2.4.0
+          image: sburn/apache-atlas
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 21000
-          env:
-            - name: ATLAS_OPTS
-              value: "-Datlas.server.bind.address=0.0.0.0"
           resources:
             requests:
               cpu: "500m"
@@ -29,23 +26,33 @@ spec:
             limits:
               cpu: "1"
               memory: "4Gi"
-          volumeMounts:
-            - name: atlas-data
-              mountPath: /opt/apache-atlas/data
-      volumes:
-        - name: atlas-data
-          emptyDir: {}
+          # ⚠️ Não defina command nem args — o ENTRYPOINT da imagem já cuida disso
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 21000
+            initialDelaySeconds: 60
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 21000
+            initialDelaySeconds: 120
+            periodSeconds: 30
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: apache-atlas
+  namespace: atlas
 spec:
   type: NodePort
-  ports:
-    - port: 21000
-      targetPort: 21000
-      nodePort: 32100
   selector:
     app: apache-atlas
+  ports:
+    - name: http
+      port: 21000
+      targetPort: 21000
+      nodePort: 32100
 
