@@ -21,12 +21,11 @@ spec:
             - containerPort: 21000
           resources:
             requests:
-              cpu: "500m"
-              memory: "2Gi"
-            limits:
-              cpu: "1"
+              cpu: "4"
               memory: "4Gi"
-          # ⚠️ Não defina command nem args — o ENTRYPOINT da imagem já cuida disso
+            limits:
+              cpu: "8"
+              memory: "8Gi"
           readinessProbe:
             httpGet:
               path: /
