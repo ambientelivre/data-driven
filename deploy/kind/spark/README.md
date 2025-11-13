@@ -28,8 +28,7 @@ kubectl logs pi-0-driver -n spark -c spark-kubernetes-driver -f
 
 
 
-
-### Testing
+### Testing Spark Iveberg Ret Metastore
 ```shell
 $SPARK_HOME/bin/spark-sql \
   --master spark://cluster-with-hpa-template-master-0:7077 \
@@ -42,6 +41,20 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.sql.catalog.iceberg.io-impl=org.apache.iceberg.aws.s3.S3FileIO \
   --conf spark.sql.catalog.demo.s3.endpoint=http://minio:9000
 ```
+### com Spark Iceberg e Metastore Hive
+
+```shell
+  # configs iceberg com Hive Catalog
+  spark.sql.extensions: org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+  spark.sql.catalog.iceberg: org.apache.iceberg.spark.SparkCatalog
+  spark.sql.catalog.iceberg.type: hive
+  spark.sql.catalog.iceberg.uri: thrift://hive-metastore.spark.svc.cluster.local:9083
+  spark.sql.catalog.iceberg.warehouse: s3a://warehouse/wh/
+  spark.sql.catalog.iceberg.s3.endpoint: http://minio.minio.svc.cluster.local:9000
+  spark.sql.catalog.iceberg.s3.path-style-access: true
+  spark.sql.defaultCatalog: iceberg
+```
+
 
 
 #### paga S3a:
