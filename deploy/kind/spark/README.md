@@ -28,7 +28,7 @@ kubectl logs pi-0-driver -n spark -c spark-kubernetes-driver -f
 
 
 
-### Testing Spark Iveberg Ret Metastore
+### Testing Spark Iceberg Rest Metastore
 ```shell
 $SPARK_HOME/bin/spark-sql \
   --master spark://cluster-with-hpa-template-master-0:7077 \
@@ -42,6 +42,7 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.sql.catalog.demo.s3.endpoint=http://minio:9000
 ```
 
+### Testing Spark Iceberg Hive Metastore
 ```shell
 $SPARK_HOME/bin/spark-sql \
   --master spark://cluster-with-hpa-template-master-0:7077 \
