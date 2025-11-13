@@ -1,5 +1,34 @@
 ## Deploy
 
+
+## Cluster Spark
+https://spark.apache.org/docs/latest/running-on-kubernetes.html#prerequisites
+
+
+### Operador 
+
+https://github.com/apache/spark-kubernetes-operator
+### install
+helm repo add spark https://apache.github.io/spark-kubernetes-operator
+helm repo update
+kubectl create ns spark
+helm install spark spark/spark-kubernetes-operator -n spark
+
+## Install cluster HPA
+kubectl apply -f cluster-with-hpa-template.yaml -n spark 
+
+
+### Executar um Test
+
+kubectl apply -f pi.yaml -n spark
+
+debub:
+
+kubectl logs pi-0-driver -n spark -c spark-kubernetes-driver -f
+
+
+
+
 ### Testing
 ```shell
 $SPARK_HOME/bin/spark-sql \
