@@ -41,7 +41,24 @@ $SPARK_HOME/bin/spark-sql \
   --conf spark.sql.catalog.iceberg.io-impl=org.apache.iceberg.aws.s3.S3FileIO \
   --conf spark.sql.catalog.demo.s3.endpoint=http://minio:9000
 ```
-### com Spark Iceberg e Metastore Hive
+
+```shell
+$SPARK_HOME/bin/spark-sql \
+  --master spark://cluster-with-hpa-template-master-0:7077 \
+  --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
+  --conf spark.sql.catalog.iceberg=org.apache.iceberg.spark.SparkCatalog \
+  --conf spark.sql.catalog.iceberg.type=hive \
+  --conf spark.sql.catalog.iceberg.uri=thrift://hive-metastore.spark.svc.cluster.local:9083 \
+  --conf spark.sql.catalog.iceberg.warehouse=s3a://warehouse/ \
+  --conf spark.sql.defaultCatalog=iceberg \
+  --conf spark.sql.warehouse.dir=s3a://warehouse/ \
+  --conf spark.sql.catalog.iceberg.io-impl=org.apache.iceberg.aws.s3.S3FileIO \
+  --conf spark.sql.catalog.iceberg.s3.endpoint=http://minio.minio.svc.cluster.local:9000 \
+  --conf spark.sql.catalog.iceberg.s3.path-style-access=true
+```
+
+
+### Configs Spark Iceberg e Metastore Hive
 
 ```shell
   # configs iceberg com Hive Catalog
