@@ -43,9 +43,9 @@ spec:
             - ":9090"
           env:
             - name: MINIO_ROOT_USER
-              value: admin
+              value: adminadmin
             - name: MINIO_ROOT_PASSWORD
-              value: admin123
+              value: sejalivre123
           ports:
             - containerPort: 9000
             - containerPort: 9090
